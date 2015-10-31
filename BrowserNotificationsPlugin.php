@@ -8,24 +8,27 @@ class BrowserNotificationsPlugin extends Plugin
 {
     const VERSION = '0.0.1';
 
-    function onEndAccountSettingsNav($action) {
+    function onEndAccountSettingsNav($action)
+    {
         $action->elementStart('li');
         $action->element('a', array('href' => common_local_url('browsernotificationssettings')), 'Browser Notifications');
         $action->elementEnd('li');
         return true;
     }
 
-    function onRouterInitialized($m) {
+    function onRouterInitialized($m)
+    {
         $m->connect(
             'settings/browsernotifications', array(
                 'action' => 'browsernotificationssettings'
-                )
-            );
+            )
+        );
 
         return true;
     }
 
-    function onEndShowScripts($action) {
+    function onEndShowScripts($action)
+    {
         $user_settings = BrowserNotificationSettings::getDefaults();
 
         if (common_logged_in()) {
@@ -48,7 +51,8 @@ class BrowserNotificationsPlugin extends Plugin
         return true;
     }
 
-    function onCheckSchema() {
+    function onCheckSchema()
+    {
         $schema = Schema::get();
         $schema->ensureTable('browser_notifications', BrowserNotificationSettings::schemaDef());
         return true;
