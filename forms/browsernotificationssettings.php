@@ -27,6 +27,8 @@ class BrowserNotificationsSettingsForm extends Form
 
     function formData()
     {
+        $user = common_current_user();
+
         $this->out->elementStart('fieldset');
 
         $this->out->elementStart('ul', 'form_data');
@@ -35,7 +37,7 @@ class BrowserNotificationsSettingsForm extends Form
         $user_settings = BrowserNotificationSettings::getDefaults();
 
         // Overwrite defaults with user settings if available
-        $bns = BrowserNotificationSettings::getByUserId($this->out->user->id);
+        $bns = BrowserNotificationSettings::getByUserId($user->id);
 
         if (!empty($bns)) {
             $user_settings = $bns;

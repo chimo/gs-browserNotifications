@@ -7,14 +7,12 @@ class BrowserNotificationsSettingsAction extends SettingsAction
 {
     protected function doPost()
     {
-        $this->user = common_current_user();
-
         $settings = array(
             'enabled' => $this->boolean('enabled', false),
             'mentions_only' => $this->boolean('mentions_only', false)
         );
 
-        BrowserNotificationSettings::save($this->user, $settings);
+        BrowserNotificationSettings::save(common_current_user(), $settings);
 
         return _('Settings saved.');
     }
