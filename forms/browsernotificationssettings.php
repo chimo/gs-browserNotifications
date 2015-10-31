@@ -37,9 +37,8 @@ class BrowserNotificationsSettingsForm extends Form
         // Overwrite defaults with user settings if available
         $bns = BrowserNotificationSettings::getByUserId($this->out->user->id);
 
-        if(!empty($bns)) {
-            $user_settings['enabled'] = $bns->enabled;
-            $user_settings['mentions_only'] = $bns->mentions_only;
+        if (!empty($bns)) {
+            $user_settings = $bns;
         }
 
         // Enabled?
@@ -47,7 +46,7 @@ class BrowserNotificationsSettingsForm extends Form
         $this->out->checkbox(
             'enabled',  // id
             'Enabled',  // label
-            $user_settings['enabled'] // checked
+            $user_settings->enabled // checked
         );
         $this->unli();
 
@@ -57,7 +56,7 @@ class BrowserNotificationsSettingsForm extends Form
         $this->out->checkbox(
             'mentions_only',
             'Only show notifications for notices that mention me',
-            $user_settings['mentions_only']
+            $user_settings->mentions_only;
         );
         $this->unli(); */
 
@@ -70,3 +69,4 @@ class BrowserNotificationsSettingsForm extends Form
         $this->out->submit('browser-notifications-settings-submit', _m('BUTTON', 'Save'), 'submit', 'submit');
     }
 }
+

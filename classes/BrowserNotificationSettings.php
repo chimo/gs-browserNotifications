@@ -31,10 +31,11 @@ class BrowserNotificationSettings extends Managed_DataObject
 
     public static function getDefaults()
     {
-        return array(
-            'enabled' => true,
-            'mentions_only' => false
-        );
+        $bns = new BrowserNotificationSettings();
+        $bns->enabled = true;
+        $bns->mentions_only = false;
+
+        return $bns;
     }
 
     public function toJSON()
