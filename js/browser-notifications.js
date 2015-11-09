@@ -14,16 +14,28 @@
     Notification.requestPermission();
 
     showNotification = function( node ) {
-        /* Request permission again in case previous ones were missed
+        /* Request permission again if previous requests were missed/ignored
            If request was previouly granted, it doesn't ask again; it just shows
            If request was previouly denied, nothing happens */
         Notification.requestPermission( function( permission ) {
             if ( permission === "granted" ) {
                 var $node = $( node ),
                     noticeText = $.trim( $node.find( ".e-content" ).text() ),
-                    author = $.trim( $node.find( ".notice-headers .p-author" ).text() );
+                    isRepeat = $node.find( ".repeat" ).length > 0,
+                    author,
+                    repeater,
+                    title;
 
-                new Notification( "New notice from " + author, { body: noticeText } );
+                if ( isRepeat ) {
+                    author = $.trim( $node.find( ".notice-headers .h-card" ).text() );
+                    repeater = $.trim( $node.find( ".repeat .p-author" ).text() );
+                    title = repeater + " repeated a notice by " + author;
+                } else {
+                    author = $.trim( $node.find( ".notice-headers .p-author" ).text() );
+                    title = "New notice from " + author;
+                }
+
+                new Notification( title, { body: noticeText } );
             }
         } );
     };
