@@ -27,7 +27,7 @@
                     title;
 
                 if ( isRepeat ) {
-                    author = $.trim( $node.find( ".notice-headers .h-card" ).text() );
+                    author = $.trim( $node.find( ".notice-headers .h-card" ).first().text() );
                     repeater = $.trim( $node.find( ".repeat .p-author" ).text() );
                     title = repeater + " repeated a notice by " + author;
                 } else {
