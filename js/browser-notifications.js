@@ -20,13 +20,18 @@
         Notification.requestPermission( function( permission ) {
             if ( permission === "granted" ) {
                 var $node = $( node ),
-                    noticeText = $.trim( $node.find( ".e-content" ).text() ),
+                    content = $.trim( $node.find( ".e-content" ).text() ),
                     isRepeat = $node.find( ".repeat" ).length > 0,
+                    isSystem = $node.find( ".system-activity" ).length > 0,
                     author,
                     repeater,
-                    title;
+                    title,
+                    icon = $node.find( ".avatar" ).attr( "src" ) || "";
 
-                if ( isRepeat ) {
+                if ( isSystem ) {
+                    title = "";
+                    content = $.trim( $node.find( ".system-activity" ).text() );
+                } else if ( isRepeat ) {
                     author = $.trim( $node.find( ".notice-headers .h-card" ).first().text() );
                     repeater = $.trim( $node.find( ".repeat .p-author" ).text() );
                     title = repeater + " repeated a notice by " + author;
@@ -35,7 +40,7 @@
                     title = "New notice from " + author;
                 }
 
-                new Notification( title, { body: noticeText } );
+                new Notification( title, { body: content, icon: icon } );
             }
         } );
     };
