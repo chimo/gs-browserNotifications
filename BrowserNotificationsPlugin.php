@@ -58,7 +58,7 @@ class BrowserNotificationsPlugin extends Plugin
         return true;
     }
 
-    function onPluginVersion(&$versions)
+    function onPluginVersion(array &$versions)
     {
         $versions[] = array('name' => 'BrowserNotifications',
                             'version' => self::VERSION,
