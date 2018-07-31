@@ -14,6 +14,11 @@ You can enable realtime updates by installing/configuring either:
 Instructions
 ---------
 
-1. Make sure the files are in a folder called BrowserNotifications if they're not already
-2. Put the folder in your /plugins/ directory
-3. Tell /config.php to use it with: addPlugin('BrowserNotifications');
+1. Navigate to your /local/plugins directory (create it if it doesn't exist)
+2. `git clone https://github.com/chimo/gs-browserNotifications.git BrowserNotifications`
+3. Tell /config.php to use it with: `addPlugin('BrowserNotifications');`
+
+Screenshot
+---------
+
+![Notification screenshot](https://static.chromic.org/repos/gs-browserNotifications/gs-browserNotification.png)
