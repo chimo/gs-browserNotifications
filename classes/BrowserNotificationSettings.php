@@ -1,9 +1,6 @@
 <?php
 
-
-if (!defined('GNUSOCIAL')) {
-    exit(1);
-}
+defined('GNUSOCIAL') || die();
 
 class BrowserNotificationSettings extends Managed_DataObject
 {
@@ -13,7 +10,22 @@ class BrowserNotificationSettings extends Managed_DataObject
     public $enabled;         // boolean
     public $mentions_only;   // boolean
 
-    public static function save($user, $settings)
+    public static function schemaDef(): array
+    {
+        return [
+            'fields' => [
+                'user_id' => ['type' => 'int(10)', 'not null' => true],
+                'enabled' => ['type' => 'int', 'size' => 'tiny', 'default' => 1],
+                'mentions_only' => ['type' => 'int', 'size' => 'tiny', 'default' => 0],
+            ],
+            'primary key' => ['user_id'],
+            'foreign keys' => [
+                'browsernotifications_user_id_fkey' => ['user', ['user_id' => 'id']]
+            ]
+        ];
+    }
+
+    public static function save($user, $settings): void
     {
         $bns = new BrowserNotificationSettings();
 
@@ -29,7 +41,7 @@ class BrowserNotificationSettings extends Managed_DataObject
         }
     }
 
-    public static function getDefaults()
+    public static function getDefaults(): BrowserNotificationSettings
     {
         $bns = new BrowserNotificationSettings();
         $bns->enabled = true;
@@ -38,36 +50,21 @@ class BrowserNotificationSettings extends Managed_DataObject
         return $bns;
     }
 
-    public function toJSON()
+    public function toJSON(): string
     {
-        return json_encode(array(
+        return json_encode([
             'enabled' => $this->enabled,
             'mentions_only' => $this->mentions_only
-        ));
+        ]);
     }
 
-    public static function getByUserId($userid)
+    public static function getByUserId(int $userid)
     {
         $user_settings = self::getKV('user_id', $userid);
 
-        $user_settings->enabled = (boolean)$user_settings->enabled;
-        $user_settings->mentions_only = (boolean)$user_settings->mentions_only;
+        $user_settings->enabled = (bool)$user_settings->enabled;
+        $user_settings->mentions_only = (bool)$user_settings->mentions_only;
 
         return $user_settings;
-    }
-
-    public static function schemaDef()
-    {
-        return array(
-            'fields' => array(
-                'user_id' => array('type' => 'int(10)', 'not null' => true),
-                'enabled' => array('type' => 'int', 'size' => 'tiny', 'default' => 1),
-                'mentions_only' => array('type' => 'int', 'size' => 'tiny', 'default' => 0),
-            ),
-            'primary key' => array('user_id'),
-            'foreign keys' => array(
-                'browsernotifications_user_id_fkey' => array('user', array('user_id' => 'id'))
-            )
-        );
     }
 }

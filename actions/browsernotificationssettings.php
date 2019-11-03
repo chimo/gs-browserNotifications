@@ -1,7 +1,6 @@
 <?php
-if (!defined('GNUSOCIAL')) {
-    exit(1);
-}
+
+defined('GNUSOCIAL') || die();
 
 class BrowserNotificationsSettingsAction extends SettingsAction
 {
@@ -14,7 +13,7 @@ class BrowserNotificationsSettingsAction extends SettingsAction
 
         BrowserNotificationSettings::save(common_current_user(), $settings);
 
-        return _('Settings saved.');
+        return _m('Settings saved.');
     }
 
     public function title()

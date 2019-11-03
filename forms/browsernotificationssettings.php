@@ -1,31 +1,30 @@
 <?php
-if (!defined('GNUSOCIAL')) {
-    exit(1);
-}
+
+defined('GNUSOCIAL') || die();
 
 class BrowserNotificationsSettingsForm extends Form
 {
-    public function __construct($out=null)
+    public function __construct(?Action $out = null)
     {
         parent::__construct($out);
     }
 
-    public function id()
+    public function id(): string
     {
         return 'browser_notifications_settings';
     }
 
-    public function formClass()
+    public function formClass(): string
     {
         return 'form_settings';
     }
 
-    public function action()
+    public function action(): string
     {
         return common_local_url('browsernotificationssettings');
     }
 
-    public function formData()
+    public function formData(): void
     {
         $user = common_current_user();
 
@@ -66,7 +65,7 @@ class BrowserNotificationsSettingsForm extends Form
         $this->elementEnd('fieldset');
     }
 
-    public function formActions()
+    public function formActions(): void
     {
         $this->out->submit('browser-notifications-settings-submit', _m('BUTTON', 'Save'), 'submit', 'submit');
     }

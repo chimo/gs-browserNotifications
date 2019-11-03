@@ -1,14 +1,12 @@
 <?php
 
-if (!defined('GNUSOCIAL')) {
-    exit(1);
-}
+defined('GNUSOCIAL') || die();
 
 class BrowserNotificationsPlugin extends Plugin
 {
-    const VERSION = '0.0.1';
+    const PLUGIN_VERSION = '1.0.0';
 
-    public function onEndAccountSettingsNav($action)
+    public function onEndAccountSettingsNav(Action $action): bool
     {
         $action->elementStart('li');
         $action->element('a', array('href' => common_local_url('browsernotificationssettings')), 'Browser Notifications');
@@ -16,19 +14,19 @@ class BrowserNotificationsPlugin extends Plugin
         return true;
     }
 
-    public function onRouterInitialized($m)
+    public function onRouterInitialized(URLMapper $m): bool
     {
         $m->connect(
             'settings/browsernotifications',
-            array(
+            [
                 'action' => 'browsernotificationssettings'
-            )
+            ]
         );
 
         return true;
     }
 
-    public function onEndShowScripts($action)
+    public function onEndShowScripts(Action $action): bool
     {
         $user_settings = BrowserNotificationSettings::getDefaults();
 
@@ -52,7 +50,7 @@ class BrowserNotificationsPlugin extends Plugin
         return true;
     }
 
-    public function onCheckSchema()
+    public function onCheckSchema(): bool
     {
         $schema = Schema::get();
         $schema->ensureTable('browser_notifications', BrowserNotificationSettings::schemaDef());
@@ -63,12 +61,12 @@ class BrowserNotificationsPlugin extends Plugin
     {
         $versions[] = [
             'name' => 'BrowserNotifications',
-            'version' => self::VERSION,
-            'author' => 'chimo',
-            'homepage' => 'https://github.com/chimo/gs-browserNotifications',
+            'version' => self::PLUGIN_VERSION,
+            'author' => 'Stéphane Bérubé',
+            'homepage' => 'https://code.chromic.org/chimo/gs-browserNotifications',
             'description' =>
             // TRANS: Plugin description.
-            _m('Receive browser notifications when a new notice and/or mention comes in.')
+                _m('Receive browser notifications when a new notice and/or mention comes in.')
         ];
         return true;
     }
