@@ -9,7 +9,7 @@ class BrowserNotificationsPlugin extends Plugin
     public function onEndAccountSettingsNav(Action $action): bool
     {
         $action->elementStart('li');
-        $action->element('a', array('href' => common_local_url('browsernotificationssettings')), 'Browser Notifications');
+        $action->element('a', ['href' => common_local_url('browsernotificationssettings')], 'Browser Notifications');
         $action->elementEnd('li');
         return true;
     }
