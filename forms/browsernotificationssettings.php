@@ -5,27 +5,27 @@ if (!defined('GNUSOCIAL')) {
 
 class BrowserNotificationsSettingsForm extends Form
 {
-    function __construct($out=null)
+    public function __construct($out=null)
     {
         parent::__construct($out);
     }
 
-    function id()
+    public function id()
     {
         return 'browser_notifications_settings';
     }
 
-    function formClass()
+    public function formClass()
     {
         return 'form_settings';
     }
 
-    function action()
+    public function action()
     {
         return common_local_url('browsernotificationssettings');
     }
 
-    function formData()
+    public function formData()
     {
         $user = common_current_user();
 
@@ -66,9 +66,8 @@ class BrowserNotificationsSettingsForm extends Form
         $this->elementEnd('fieldset');
     }
 
-    function formActions()
+    public function formActions()
     {
         $this->out->submit('browser-notifications-settings-submit', _m('BUTTON', 'Save'), 'submit', 'submit');
     }
 }
-

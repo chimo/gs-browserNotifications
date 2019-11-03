@@ -8,7 +8,7 @@ class BrowserNotificationsPlugin extends Plugin
 {
     const VERSION = '0.0.1';
 
-    function onEndAccountSettingsNav($action)
+    public function onEndAccountSettingsNav($action)
     {
         $action->elementStart('li');
         $action->element('a', array('href' => common_local_url('browsernotificationssettings')), 'Browser Notifications');
@@ -16,10 +16,11 @@ class BrowserNotificationsPlugin extends Plugin
         return true;
     }
 
-    function onRouterInitialized($m)
+    public function onRouterInitialized($m)
     {
         $m->connect(
-            'settings/browsernotifications', array(
+            'settings/browsernotifications',
+            array(
                 'action' => 'browsernotificationssettings'
             )
         );
@@ -27,7 +28,7 @@ class BrowserNotificationsPlugin extends Plugin
         return true;
     }
 
-    function onEndShowScripts($action)
+    public function onEndShowScripts($action)
     {
         $user_settings = BrowserNotificationSettings::getDefaults();
 
@@ -51,22 +52,24 @@ class BrowserNotificationsPlugin extends Plugin
         return true;
     }
 
-    function onCheckSchema()
+    public function onCheckSchema()
     {
         $schema = Schema::get();
         $schema->ensureTable('browser_notifications', BrowserNotificationSettings::schemaDef());
         return true;
     }
 
-    function onPluginVersion(array &$versions)
+    public function onPluginVersion(array &$versions): bool
     {
-        $versions[] = array('name' => 'BrowserNotifications',
-                            'version' => self::VERSION,
-                            'author' => 'chimo',
-                            'homepage' => 'https://github.com/chimo/gs-browserNotifications',
-                            'description' =>
-                            // TRANS: Plugin description.
-                            _m('Receive browser notifications when a new notice and/or mention comes in.'));
+        $versions[] = [
+            'name' => 'BrowserNotifications',
+            'version' => self::VERSION,
+            'author' => 'chimo',
+            'homepage' => 'https://github.com/chimo/gs-browserNotifications',
+            'description' =>
+            // TRANS: Plugin description.
+            _m('Receive browser notifications when a new notice and/or mention comes in.')
+        ];
         return true;
     }
 }

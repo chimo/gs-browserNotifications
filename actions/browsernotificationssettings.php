@@ -17,12 +17,12 @@ class BrowserNotificationsSettingsAction extends SettingsAction
         return _('Settings saved.');
     }
 
-    function title()
+    public function title()
     {
         return _m('Browser Notifications Settings');
     }
 
-    function showContent()
+    public function showContent()
     {
         $form = new BrowserNotificationsSettingsForm($this);
         $form->show();
